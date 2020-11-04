@@ -4,7 +4,8 @@
 for (var i=0; i<document.querySelectorAll(".drum").length; i++){
     document.querySelectorAll(".drum")[i].addEventListener("click",function(){
         var buttonInnerHTML = this.innerHTML;
-        handleClick(buttonInnerHTML);
+        makeSound(buttonInnerHTML);
+        buttonAnimation(buttonInnerHTML);
     });
 }
 
@@ -12,12 +13,13 @@ for (var i=0; i<document.querySelectorAll(".drum").length; i++){
 // Detecting Keybord Press
 
 document.addEventListener("keypress",function(event){
-    handleClick(event.key);
+    makeSound(event.key);
+    buttonAnimation(event.key);
 })
 
 
 // Make Sound Function
-function handleClick(buttonInnerHTML) {
+function makeSound(buttonInnerHTML) {
     switch (buttonInnerHTML) {
         case "w":
             var audio = new Audio('sounds/crash.mp3');
@@ -49,4 +51,12 @@ function handleClick(buttonInnerHTML) {
             break;
         default: console.log(buttonInnerHTML);
     }
+}
+
+function buttonAnimation(currentKey){
+var activeButton = document.querySelector("."+currentKey);
+activeButton.classList.add("pressed");
+setTimeout(function(){
+    activeButton.classList.remove("pressed");
+},100);
 }
